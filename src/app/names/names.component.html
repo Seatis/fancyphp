@@ -1,0 +1,24 @@
+<p-dialog header="Név szerkesztése - {{modifiedName}}" [(visible)]="display" [modal]="true" [responsive]="true" [style]="{width: '350px', minWidth: '200px'}" [minY]="70" 
+    [maximizable]="true" [baseZIndex]="10000">
+    <input type="text" pInputText [(ngModel)]="modifiedName"/>
+    <p-footer>
+        <button type="button" pButton icon="pi pi-check" (click)="updateName()" label="Mentés"></button>
+        <button type="button" pButton icon="pi pi-close" (click)="display=false" label="Mégsem" class="ui-button-secondary"></button>
+    </p-footer>
+</p-dialog>
+<div class="ui-g">
+  <div class="ui-g-12 name-area" *ngIf="namesLoaded">
+    <div class="name" *ngFor="let item of employeeNames">
+      <p-checkbox name="nameGroup" [value]="item" [(ngModel)]="selectedNames" (onChange)="change(item.name)"></p-checkbox>
+      {{item.name}}<i class="pi pi-pencil click" (click)="showDialog(item)"></i>
+    </div>
+  </div>
+  <div class="spinner-area" *ngIf="!namesLoaded">
+      <p-progressSpinner animationDuration="2s"></p-progressSpinner>
+  </div>
+  <div class="ui-g-12 button-area">
+      <button pButton type="button" label="Törlés" class="ui-button-danger margin-right-10" (click)="deleteName()"></button>
+      <input type="text" pInputText [(ngModel)]="newName"/>
+      <button pButton type="button" label="Hozzáadás" (click)="addName()"></button>
+  </div>
+</div>
