@@ -14,17 +14,11 @@ export class NameService {
 
   constructor(private http: HttpClient) { }
 
-  public getNames() {
-    return this.http.get('https://potent-exhaust.glitch.me/employees');
-  }
-
   public getNamesPhp() {
     const httpOptions = {
       headers: new HttpHeaders({
         'Accept':  'application/json',
         'Access-Control-Allow-Origin': '*'
-        // 'Access-Control-Allow-Methods': "*",
-        // 'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept, Authorization"
       })
     };
     return this.http.get(this.serverUrl + 'getnames.php', httpOptions);
