@@ -37,16 +37,6 @@ export class NamesComponent implements OnInit {
     this.loadNamesPhp();
   }
 
-  // public loadNames(): void {
-  //   this.namesLoaded = false;
-  //   this.nameService.getNames().subscribe( (response: ResponseModel) => {
-  //     if (response.data) {
-  //       this.namesLoaded = true;
-  //       this.employeeNames = response.data;
-  //     }
-  //   });
-  // }
-
   public loadNamesPhp(): void {
     this.employeeNames = [];
     this.namesLoaded = false;
