@@ -1,27 +1,27 @@
 <?php
 include("mysql_conn_names.php");
 
-foreach($_GET as $key => $value) {
-	$$key=$value;
-}
-
-if (isset($color)) {
-  $sql="SELECT * FROM licence_plates WHERE color=$color";
-} elseif (isset($brand)) {
-  $sql="SELECT * FROM licence_plates WHERE car_brand=$brand";
-} else {
-  $sql="SELECT * FROM names";
-}
-
+$sql="SELECT * FROM names";
 $result = mysqli_query($conn,$sql);
+$response = new \stdClass();
 
-while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
-  $rows[] = $row;
+if (!$result) {
+$response->status = 'error';
+$response->error = $conn->error;
+} else {
+  while($row = mysqli_fetch_array($result,MYSQLI_ASSOC)) {
+    $rows[] = $row;
+  }
+  if (isset($rows)) {
+    $response->status = 'OK';
+    $response->data = $rows;
+  } else {
+    $response->status = 'error';
+    $response->error = 'No match!';
+  }
 }
 
-$response = new \stdClass();
-$response->data = $rows;
-echo json_encode($response);
+echo json_encode($response, JSON_UNESCAPED_UNICODE);
 
 mysqli_close($conn);
 ?>

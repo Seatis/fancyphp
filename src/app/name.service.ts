@@ -5,11 +5,12 @@ import { HttpHeaders } from '@angular/common/http';
 import { catchError, retry } from 'rxjs/operators';
 import { PostResponse } from './model/postres.model';
 import { URLSearchParams } from 'url';
+import {environment} from '../environments/environment';
 
 @Injectable()
 export class NameService {
 
-  
+  private serverUrl: string = environment.serverUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -26,7 +27,7 @@ export class NameService {
         // 'Access-Control-Allow-Headers': "Origin, X-Requested-With, Content-Type, Accept, Authorization"
       })
     };
-    return this.http.get('http://localhost:8080/backend/getnames.php', httpOptions);
+    return this.http.get(this.serverUrl + 'getnames.php', httpOptions);
   }
 
   public postNames(body: string): Observable<PostResponse> {
@@ -37,7 +38,7 @@ export class NameService {
         'Content-Type':  'application/json'
       })
     };
-    return this.http.post<PostResponse>('http://localhost:8080/backend/addname.php', body, httpOptions).pipe( catchError(this.handleError));
+    return this.http.post<PostResponse>(this.serverUrl + 'addname.php', body, httpOptions).pipe( catchError(this.handleError));
   }
 
   public deleteNamesPhp(id: string): Observable<string> {
@@ -49,7 +50,7 @@ export class NameService {
         id: id
       }
     };
-    return this.http.delete<string>('http://localhost:8080/backend/deletename.php', httpOptions).pipe( catchError(this.handleError));
+    return this.http.delete<string>(this.serverUrl + 'deletename.php', httpOptions).pipe( catchError(this.handleError));
   }
 
   public updateNamePhp(id: string, body: string): Observable<string> {
@@ -62,7 +63,7 @@ export class NameService {
         id: id
       }
     };
-    return this.http.put<string>('http://localhost:8080/backend/updatename.php', body, httpOptions).pipe( catchError(this.handleError));
+    return this.http.put<string>(this.serverUrl + 'updatename.php', body, httpOptions).pipe( catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

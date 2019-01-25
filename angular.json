@@ -57,6 +57,10 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.test.ts"
+                },
+                {
+                  "replace": "src/backend/mysql_conn_names.php",
+                  "with": "src/backend_test/mysql_conn_names.php"
                 }
               ]
             }

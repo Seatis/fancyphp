@@ -12,4 +12,5 @@ if ($conn->connect_error) {
 } 
 
 mysqli_select_db($conn,"namesdb");
+$conn->set_charset("utf8"); 
 ?>

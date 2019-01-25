@@ -5,7 +5,6 @@ $password = "GR18pvbalaton";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password);
-mysqli_set_charset('utf8',$conn);
 
 // Check connection
 if ($conn->connect_error) {
@@ -13,4 +12,5 @@ if ($conn->connect_error) {
 } 
 
 mysqli_select_db($conn,"kodolole_namesdb");
+$conn->set_charset("utf8"); 
 ?>
